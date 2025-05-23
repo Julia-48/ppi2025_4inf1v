@@ -1,7 +1,8 @@
 :root {
---primary-blue: #031d44ff;
---prussian-blue: #04395eff;
---columbia-blue: #b9d6f2ff;
+--primary-dark: #031d44ff;
+--primary-light: #EBB10E;
+--secundary-dark: #04395eff;
+--secundary-light: #b9d6f2ff;
 --tan: #dab785ff;
 --vanilla: #eee3abff;
 
