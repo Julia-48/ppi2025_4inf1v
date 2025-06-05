@@ -1,11 +1,15 @@
 .container {
     /* margin: 0 auto; */
-    max-width: 50rem;
+    width: 30rem;
+
+    width: 30rem;
+    @media (max-width: 768px) {
+        width: 80%;
+    }
 }
 
 .div {
-    height: 20rem;
-    width: 40rem;
+    height: 30rem;
     background-color: var(--primary-dark);
     box-shadow: 0 0 1rem var(--secondary-dark);
     /* margin: 3rem 5rem; */
@@ -18,9 +22,16 @@
     font-size: 4rem;
     color: var(--primary-light);
     text-align: center;
-    margin-bottom: 2rem
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
+
+
 }
 
 .text {
     font-size: 2rem;
 }
+

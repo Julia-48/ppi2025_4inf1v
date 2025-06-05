@@ -12,4 +12,24 @@
     /* EIXO VERTICAL - Cross Axis */
     align-items: center; /* flex-start flex-end center baseline stretch */
     align-content: center;
+
+    @media (max-width: 768px) {
+        font-size: 3rem;
+    }
+}
+
+.title {
+    font-weight: bolder;
+    font-size: 4rem;
+    color: var(--primary-light);
+    text-align: center;
+    margin-bottom: 2rem;
+
+    @media (max-width: 1200px) {
+        font-size: 6rem;
+
+        @media (max-width: 768px) {
+        font-size: 3rem;
+    }
+    }
 }
