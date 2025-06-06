@@ -2,7 +2,8 @@
     padding: 3rem;
     display: grid;
     gap: 3rem;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    grid-template-columns: 0.2fr 1fr 0.2fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .card {
@@ -19,13 +20,14 @@
     display: grid;
 
     grid-template-areas: 
-    "header1 header1"
-    "aside header2"
-    "aside main"
-    "footer footer";
+    "header1 header1 header1"
+    "aside1 header2 aside2"
+    "aside1 main aside2"
+    "aside1 footer1 aside2"
+    "footer2 footer2 aside2";
 
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 10rem 5rem calc(100vh - 15rem) 20rem;
+    grid-template-columns: 0.2fr 1fr 0.2fr;
+    grid-template-rows: 10rem 5rem calc(100vh - 15rem) 20rem 20rem;
 
     @media (max-width: 1200px) {
         grid-template-areas: 
@@ -40,24 +42,42 @@
 
 .header1 {
     grid-area: header1;
-    background-color: darkslateblue;
+    background-color: rgb(135, 117, 255);
 }
 
 .header2 {
     grid-area: header2;
-    background-color: darkslategray;
+    background-color: rgb(147, 255, 255);
 }
 
-.aside {
-    grid-area: aside;
-    background-color: darkred;
+.aside1 {
+    grid-area: aside1;
+    background-color: rgb(255, 170, 12);
 
     @media (max-width: 1200px) {
         display: none;
     }
 }
 
-.footer {
-    grid-area: footer;
-    background-color: darkgreen;
+.aside2 {
+    grid-area: aside2;
+    background-color: rgb(255, 104, 104);
+
+    @media (max-width: 1200px) {
+        display: none;
+    }
+}
+
+.footer1 {
+    grid-area: footer1;
+    background-color: rgb(125, 255, 125);
+
+    @media (max-width: 1200px) {
+        display: none;
+    }
+}
+
+.footer2 {
+    grid-area: footer2;
+    background-color: rgb(255, 74, 246);
 }
