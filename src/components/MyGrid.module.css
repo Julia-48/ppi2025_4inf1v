@@ -2,82 +2,65 @@
     padding: 3rem;
     display: grid;
     gap: 3rem;
-    grid-template-columns: 0.2fr 1fr 0.2fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
+.title {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 4rem;
+    color: var(--primary-light);
+    font-weight: bolder;
+
+
+}
 .card {
     background-color: var(--primary-light);
     color: var(--primary-dark);
     padding: 1rem;
     border-radius: 1rem;
-    box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.5);
-    font-size: 3rem;
+    box-shadow: 2rem 2rem 2 rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
     text-align: center;
+
+    @media (max-width: 1200px) {
+        font-size: 2rem;
+        padding: 2rem;     
+    }
 }
 
 .container {
     display: grid;
 
     grid-template-areas: 
-    "header1 header1 header1"
-    "aside1 header2 aside2"
-    "aside1 main aside2"
-    "aside1 footer1 aside2"
-    "footer2 footer2 aside2";
-
-    grid-template-columns: 0.2fr 1fr 0.2fr;
-    grid-template-rows: 10rem 5rem calc(100vh - 15rem) 20rem 20rem;
-
-    @media (max-width: 1200px) {
-        grid-template-areas: 
-    "header1"
-    "header2"
+    "header"
     "main"
     "footer";
 
-    grid-template-columns: 1fr 2fr;
-    }
+    grid-template-columns: 1fr;
+    grid-template-rows: 10rem 5rem calc(100vh - 15rem);
 }
 
-.header1 {
-    grid-area: header1;
+.header {
+    grid-area: header;
     background-color: rgb(135, 117, 255);
 }
 
-.header2 {
-    grid-area: header2;
-    background-color: rgb(147, 255, 255);
-}
-
-.aside1 {
-    grid-area: aside1;
-    background-color: rgb(255, 170, 12);
-
-    @media (max-width: 1200px) {
-        display: none;
-    }
-}
-
-.aside2 {
-    grid-area: aside2;
-    background-color: rgb(255, 104, 104);
-
-    @media (max-width: 1200px) {
-        display: none;
-    }
-}
-
-.footer1 {
-    grid-area: footer1;
+.footer {
+    grid-area: footer;
     background-color: rgb(125, 255, 125);
 
-    @media (max-width: 1200px) {
+    @media (max-width: 3000px) {
         display: none;
     }
 }
 
-.footer2 {
-    grid-area: footer2;
-    background-color: rgb(255, 74, 246);
+.main {
+    grid-area: main;
+    background-color: rgb(255, 125, 125);
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
 }
