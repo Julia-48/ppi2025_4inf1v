@@ -1,6 +1,6 @@
-import styles from "./MyGrid.module.css";
+import styles from "./Main.module.css";
 
-export function MyGrid() {
+export function Main() {
   return (
     <div className={styles.container}>
       <header className={styles.header1} />

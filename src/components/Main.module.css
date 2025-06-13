@@ -1,0 +1,19 @@
+.main {
+    grid-area: main;
+    background-color: var(--primary-dark);
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card {
+  height: 20rem;
+  background-color: var(--primary-dark);
+  color: var(--primary-light);
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  font-size: 3rem;
+  text-align: center;
+}
