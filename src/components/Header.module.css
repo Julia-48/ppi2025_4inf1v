@@ -1,12 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem;
+}
+
+.container h1 {
+  font-size: 5rem;
+  font-weight: bolder;
+}
+
 .header {
   grid-area: header;
   background-color: var(--primary-light);
+  display: flex;
+  flex-direction: column;
 }
 
-.title {
-  font-size: 3rem;
-  color: var(--primary-dark);
-  text-align: center;
-  padding: 2rem;
+.containerImg .logo{
+  height: auto;
+  width: 100%;
+  max-width: 20rem;
 }
 

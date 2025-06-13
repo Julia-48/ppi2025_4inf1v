@@ -1,4 +1,12 @@
 .footer {
   grid-area: footer;
-  background-color: darkslateblue;
+  background-color: var(--secundary-light);
+}
+
+.text {
+  font-size: 1.5rem;
+  color: var(--secundary-dark);
+  text-align: center;
+  padding: 1rem;
+  display: flex;
 }
