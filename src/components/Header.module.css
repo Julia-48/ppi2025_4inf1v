@@ -1,24 +1,35 @@
-.container {
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary-light);
+  padding: 1.5rem;
+}
+
+.centralContainer {
   display: flex;
   align-items: center;
+  gap: 1.5rem;
   justify-content: center;
-  gap: 2rem;
-  padding: 3rem;
 }
 
-.container h1 {
-  font-size: 5rem;
-  font-weight: bolder;
+.text {
+  color: black;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
 }
 
-.header {
-  grid-area: header;
-  background-color: var(--primary-light);
-  display: flex;
-  flex-direction: column;
+@media (max-width: 768px) {
+  .centralContainer {
+    gap: 1rem;
+  }
+
+  .tema {
+    font-size: 1.6rem;
+  }
 }
 
-.containerImg .logo{
+.containerImg img {
   height: auto;
   width: 100%;
   max-width: 20rem;

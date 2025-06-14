@@ -1,15 +1,17 @@
 import styles from "./Header.module.css";
-import img from "../assets/img/logo.png";
+import img from "../assets/img/logojs.png";
+
 export function Header() {
   return (
-    <div className={styles.container}>
+    <header className={styles.header}>
+      <div className={styles.centralContainer}>
         <div className={styles.containerImg}>
-            <img 
-            src={img}
-            alt="Logo do IFRN"
-            />
+          <img src={img}
+          alt="logo"
+          />
         </div>
-        <h1> JS Criações</h1>
-    </div>
+        <h1 className={styles.text}>JS Criações</h1>
+      </div>
+    </header>
   );
 }
