@@ -1,57 +1,51 @@
-import { useEffect, useState } from 'react';
-import styles from './ProductList.module.css';
-import { CircularProgress } from '@mui/material';
+import { useEffect, useState } from "react";
+import styles from "./ProductList.module.css";
+import { CircularProgress } from "@mui/material";
+import { Product } from "./Product";
 
-export function ProductList() {
-    var category = "smartphones";
-    var limit = 10;
-    var apiUrl = `https://dummyjson.com/products/category/${category}?limit=${limit}&select=id,thumbnail,brand,title,price,description`;
+export function ProductList({ addToCart }) {
+  var category = "smartphones";
+  var limit = 10;
+  var apiUrl = `https://dummyjson.com/products/category/${category}?limit=${limit}&select=id,thumbnail,title,price,description`;
 
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        async function fetchProducts(){
-            try{
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                setProducts(data.products);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        }
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        setProducts(data.products);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-        fetchProducts();
-    }, []);
+    fetchProducts();
+  }, []);
 
-    return (
-    <div className={StyleSheet.container}>
-        <h1>TJA Megastore</h1>
+  return (
+    <div className={styles.container}>
+      <div className={styles.productList}>
         {products.map((product) => (
-            <div key={product.id} className={styles.product}>
-                <img 
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className={styles.productImage} 
-                />
-                <h2 className={styles.productTitle}>{`${product.brand} ${product.title}`}</h2>
-                <p className={styles.productPrice}>Price: ${product.price}</p>
-                <p className={styles.productDescription}>{product.description}</p>
-            </div>
+          <Product key={product.id} product={product} addToCart={addToCart} />
         ))}
-        {loading && (
-            <div>
-                <CircularProgress
-                    thickness={5}
-                    style={{ margin: "2rem auto", display: "block" }}
-                    sx={{ color: "var(--primary-color)" }}
-                />
-                <p>Loading products...</p>
-            </div>
-        )}
+      </div>
+      {loading && (
+        <div>
+          <CircularProgress
+            thickness={5}
+            style={{ margin: "2rem auto", display: "block" }}
+            sx={{ color: "#001111" }}
+          />
+          <p>Loading products...</p>
+        </div>
+      )}
+      {error && <p>Error loading products: {error.message} ❌</p>}
     </div>
-    );
+  );
 }

@@ -1,37 +1,28 @@
-.header {
-  display: flex;
-  justify-content: center;
-  background-color: var(--primary-light);
-  padding: 1.5rem;
-}
-
-.centralContainer {
+.container {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 5rem;
+  background-color: var(--secundary-dark);
 }
-
-.text {
-  color: black;
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 0;
+.container h1 {
+  font-size: 5rem;
+  font-weight: bolder;
 }
-
-@media (max-width: 768px) {
-  .centralContainer {
-    gap: 1rem;
-  }
-
-  .tema {
-    font-size: 1.6rem;
-  }
-}
-
 .containerImg img {
   height: auto;
   width: 100%;
   max-width: 20rem;
+}
+
+.cartInfo {
+  border-radius: 3rem;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 2rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
 }
 
