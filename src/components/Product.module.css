@@ -1,5 +1,5 @@
 .productCard {
-  border: 0.25rem solid var(--tan);
+  border: 0.25rem solid var(--primary-light);
   border-radius: 5rem;
   padding: 2rem;
   text-align: center;
@@ -30,7 +30,7 @@
 
 .productButton {
   background-color: var(--primary-dark);
-  color: var(--gray-900);
+  color: var(--primary-light);
   border: none;
   padding: 1rem 2rem;
   border-radius: 1rem;
