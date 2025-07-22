@@ -10,10 +10,9 @@ export function Header({ cart }) {
         <div className={styles.cartInfo}>
           <ShoppingBasket size={32} />
           <p>
-            Total: ${" "}
-            {cart
-              .reduce((total, product) => total + product.price, 0)
-              .toFixed(2)}
+            {cart.length === 0
+              ? "Carrinho vazio"
+              : `Total: $${cart.reduce((total, product) => total + product.price, 0).toFixed(2)}`}
           </p>
         </div>
       </Link>
