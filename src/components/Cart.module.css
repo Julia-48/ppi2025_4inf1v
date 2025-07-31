@@ -10,7 +10,10 @@
 .cart h2 {
   font-size: 4rem;
   font-weight: bolder;
-  color: var(--primary-ligth);
+  color: var(--primary-dark);
+  background-color: var(--primary-light);
+  padding: 2rem;
+  border-radius: 1rem;
 }
 
 .cart p {
