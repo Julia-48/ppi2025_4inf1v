@@ -1,11 +1,9 @@
 import { useState, useEffect, createContext } from "react";
 
 export const CartContext = createContext({
-  // Context to manage the products state
   products: [],
   loading: false,
   error: null,
-  // Context to manage the cart state
   cart: [],
   addToCart: () => {},
   updateQtyCart: () => {},
@@ -13,7 +11,6 @@ export const CartContext = createContext({
 });
 
 export function CartProvider({ children }) {
-  // State to manage products
   var category = "smartphones";
   var limit = 10;
   var apiUrl = `https://dummyjson.com/products/category/${category}?limit=${limit}&select=id,thumbnail,title,price,description`;
@@ -37,11 +34,9 @@ export function CartProvider({ children }) {
     fetchProducts();
   }, []);
 
-  // State to manage the cart
   const [cart, setCart] = useState([]);
 
   function addToCart(product) {
-    // Check if the product is already in the cart
     const existingProduct = cart.find((item) => item.id === product.id);
     if (existingProduct) {
       updateQtyCart(product.id, existingProduct.quantity + 1);
@@ -70,6 +65,9 @@ export function CartProvider({ children }) {
     addToCart: addToCart,
     updateQtyCart: updateQtyCart,
     clearCart: clearCart,
+    removeFromCart: (id) => {
+      setCart((prev) => prev.filter((item) => item.id !== id));
+    }
   };
 
   return (

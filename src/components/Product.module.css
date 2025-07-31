@@ -42,5 +42,5 @@
 
 .productButton:hover {
   background-color: var(--primary-light);
-  color: var(--primary-dark);
+  color: var(--primary-dark);;
 }

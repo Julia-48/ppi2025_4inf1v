@@ -7,6 +7,8 @@ import { CartContext } from "../service/CartContext";
 export function Header() {
   const { cart } = useContext(CartContext);
 
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <div className={styles.container}>
       <Link to="/" className={styles.link}>
@@ -14,15 +16,21 @@ export function Header() {
       </Link>
       <Link to="/cart" className={styles.link}>
         <div className={styles.cartInfo}>
-          <ShoppingBasket size={32} />
+          <div className={styles.cartIconWrapper}>
+            <ShoppingBasket size={32} />
+            {cartCount > 0 && (
+              <span className={styles.cartBadge}>{cartCount}</span>
+            )}
+          </div>
           <p>
-            Total: ${" "}
-            {cart
-              .reduce(
-                (total, product) => total + product.price * product.quantity,
-                0
-              )
-              .toFixed(2)}
+            {cart.length === 0
+              ? "Carrinho vazio"
+              : `Total: $${cart
+                  .reduce(
+                    (total, product) => total + product.price * product.quantity,
+                    0
+                  )
+                  .toFixed(2)}`}
           </p>
         </div>
       </Link>
