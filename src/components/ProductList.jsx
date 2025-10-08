@@ -1,40 +1,52 @@
 import styles from "./ProductList.module.css";
 import { CircularProgress } from "@mui/material";
 import { Product } from "./Product";
-import { useContext, useRef, useState } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { CartContext } from "../context/CartContext";
 
 export function ProductList() {
+  
   const { products, loading, error } = useContext(CartContext);
-  const [search, setSearch] = useState("");
 
-  function handleSearch(e) {
-    setSearch(e.target.value.toLowerCase());
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const searchInput = useRef(null);
+
+  useEffect(() => {
+    if(products) {
+      setFilteredProducts(products);
+    }
+  }, [products]);
+
+  function handleSearch() {
+    const query = searchInput.current.value.toLowerCase();
+    setFilteredProducts(
+      products.filter((product) =>
+        product.title.toLowerCase().includes(query) || 
+        product.description.toLowerCase().includes(query)
+      )
+    );
   }
 
   function handleClear() {
-    setSearch("");
+    searchInput.current.value = "";
+    setFilteredProducts(products);
   }
-
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(search)
-  );
 
   return (
     <div className={styles.container}>
       <div className={styles.searchContainer}>
         <input
+          ref={searchInput}
           type="text"
           placeholder="Search products..."
           className={styles.searchInput}
-          value={search}
           onChange={handleSearch}
         />
         <button className={styles.searchButton} onClick={handleClear}>
-          Clear
+          CLEAR
         </button>
       </div>
-
       <div className={styles.productList}>
         {filteredProducts.map((product) => (
           <Product key={product.id} product={product} />
@@ -50,7 +62,7 @@ export function ProductList() {
           <p>Loading products...</p>
         </div>
       )}
-      {error && <p>Error loading products: {error.message} ❌</p>}
+      {error && <p>❌ {error}</p>}
     </div>
   );
 }

@@ -75,16 +75,11 @@ export function CartProvider({ children }) {
   }
 
   function updateQtyCart(productId, quantity) {
-    if (quantity < 1) {
-      // Remove o item se a quantidade for menor que 1
-      setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
-    } else {
-      setCart((prevCart) =>
-        prevCart.map((item) =>
-          item.id === productId ? { ...item, quantity: quantity } : item
-        )
-      );
-    }
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === productId ? { ...item, quantity: quantity } : item
+      )
+    );
   }
 
   function clearCart() {

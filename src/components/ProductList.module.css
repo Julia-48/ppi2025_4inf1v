@@ -15,30 +15,38 @@
   grid-template-rows: repeat(auto-fit, min-content);
 }
 
-.searchInput {
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
   width: 100%;
-  max-width: 40rem;
-  padding: 1rem;
-  font-size: 2rem;
-  border: 0.1rem solid var(--primary-dark);
-  border-radius: 0.5rem;
-  margin-bottom: 2rem;
-  background-color: var(--primary-light);
 }
 
-.searchInput::placeholder {
-  color: var(--primary-dark);
-  font-style: italic;
-  font-size: 1.5rem;
+.searchInput {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 60rem;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 2rem;
+  border: 0.25rem solid var(--primary);
+  border-radius: 1rem;
 }
 
 .searchButton {
-  padding: 1rem 2rem;
-  font-size: 2rem;
-  background-color: var(--primary-dark);
-  color: var(--primary-light);
-  font-style: italic;
+  background-color: var(--primary);
+  color: var(--gray-900);
   border: none;
-  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
   cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  border: 0.25rem solid var(--gray-900);
+}
+
+.searchButton:hover {
+  background-color: var(--primary-dark);
 }
