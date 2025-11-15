@@ -10,38 +10,11 @@
 .cart h2 {
   font-size: 4rem;
   font-weight: bolder;
-  color: var(--primary-dark);
-  background-color: var(--primary-light);
-  padding: 2rem;
-  border-radius: 1rem;
 }
 
 .cart p {
   font-size: 2rem;
-  color: var(--primary-ligth);
-  font-style: italic;
-}
-
-.cart button {
-  padding: 1rem 2rem;
-  font-size: 2rem;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  border: none;
-  border-radius: 1rem;
-  cursor: pointer;
-}
-
-.cart button:hover {
-  background-color: var(--primary-dark);
-  color: var(--primary-light);
-}
-
-.cartTotal {
-  font-size: 2rem;
-  font-weight: bold;
-  color: var(--primary-light);
-  font-style: normal;
+  color: var(--primary-contrast-dark);
 }
 
 .cartItem {
@@ -52,8 +25,8 @@
   padding: 2rem 5rem;
   margin: 2rem;
   border-radius: 1rem;
-  background-color: var(--tan);
-  color: var(--primary-dark);
+  background-color: var(--gray-100);
+  color: var(--primary-contrast-dark);
 }
 
 .cartItem img {
@@ -73,7 +46,7 @@
 .cartItem button {
   padding: 1rem 2rem;
   font-size: 3rem;
-  background-color: var(--tan);
+  background-color: var(--primary);
   color: #111;
   border: none;
   border-radius: 0.5rem;
@@ -81,23 +54,31 @@
 }
 
 .cartItem button:hover {
-  background-color: var(--primary-light);
+  background-color: var(--primary-dark);
 }
 
 .cartItem button:disabled {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-light);
   cursor: not-allowed;
 }
 
 .quantityControls {
   display: flex;
   align-items: center;
-  border: 0.25rem solid #ffffff;
+  border: 0.25rem solid #111;
   border-radius: 1rem;
-  color: var(--primary-ligth);
 }
 
 .quantityControls span {
   font-size: 2rem;
   margin: 0 2rem;
+}
+
+.removeButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-size: 2.5rem;
+  margin-left: 2rem;
 }

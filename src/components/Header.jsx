@@ -16,7 +16,7 @@ export function Header() {
         </Link>
         {session && (
           <Link to="/user" className={styles.welcomeMessage}>
-            Welcome, {session.user.user_metadata.username}
+            Welcome, {session.user.user_metadata.username} {session.user.user_metadata.admin && '⭐'}
           </Link>
         )}
       </div>

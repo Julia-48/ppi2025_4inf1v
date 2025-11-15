@@ -1,13 +1,37 @@
 :root {
---primary-dark: #031d44ff;
---primary-light: #EBB10E;
---secundary-dark: #04395eff;
---secundary-light: #b9d6f2ff;
---tan: #dab785ff;
---vanilla: #eee3abff;
+	/* Light theme (default) */
+	--primary-dark: #031d44ff;
+	--primary-light: #EBB10E;
+	--secundary-dark: #04395eff;
+	--secundary-light: #b9d6f2ff;
+	--tan: #dab785ff;
+	--vanilla: #eee3abff;
 
- font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
+:root[data-theme="dark"] {
+	/* Dark theme overrides */
+	--primary-dark: #000000; /* darker background */
+	--primary-light: #ffb303; /* accent */
+	--secundary-dark: #000000; /* page background */
+	--secundary-light: #294c6d; /* surface */
+	--tan: #e7c19d;
+	--vanilla: #e9dfab;
+}
 
+:root[data-theme="light"] {
+	/* Explicit light overrides (same as default) */
+	--primary-dark: #031d44ff;
+	--primary-light: #EBB10E;
+	--secundary-dark: #04395eff;
+	--secundary-light: #b9d6f2ff;
+	--tan: #dab785ff;
+	--vanilla: #eee3abff;
+}
 
+/* Optional: fallback body styles when variables are available */
+html, body {
+	background-color: var(--secundary-dark);
+	color: var(--primary-light);
 }

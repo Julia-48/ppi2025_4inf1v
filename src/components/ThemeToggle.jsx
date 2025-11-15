@@ -2,16 +2,29 @@ import { useState, useEffect } from 'react';
 import styles from './ThemeToggle.module.css';
 import { MoonIcon, SunIcon } from 'lucide-react';
 
+function getInitialTheme() {
+  if (typeof window === 'undefined') return 'light';
+  const stored = localStorage.getItem('theme');
+  if (stored === 'light' || stored === 'dark') return stored;
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  return 'light';
+}
+
 export function ThemeToggle() {
-  const [theme, setTheme] = useState(localStorage.getItem('theme'));
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
+    if (!theme) return;
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {}
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
@@ -19,8 +32,9 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       className={styles.toggleButton}
       aria-label="Toggle theme"
-    > Theme
-      {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+      type="button"
+    >
+      Theme {theme === 'light' ? <MoonIcon /> : <SunIcon />}
     </button>
   );
 }

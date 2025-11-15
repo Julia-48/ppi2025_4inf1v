@@ -16,4 +16,5 @@
 
 .toggleButton:hover {
   color: var(--primary-dark);
+  background-color: var(--secundary-light);
 }
