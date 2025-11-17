@@ -1,46 +1,90 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./Manager.module.css";
+import { supabase } from "../utils/supabase";
+import { SessionContext } from "../context/SessionContext";
 
 export function Manager() {
+  const { session } = useContext(SessionContext);
   const [products, setProducts] = useState([]);
-  const [form, setForm] = useState({ id: null, title: "", price: "" });
+  const [form, setForm] = useState({ id: null, title: "", price: "", thumbnail: "", description: "" });
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      const { data, error } = await supabase.from("product_1v").select();
+      if (error) setError(error.message);
+      else setProducts(data || []);
+      setLoading(false);
+    }
+    // only load if admin
+    if (session?.user?.user_metadata?.admin) load();
+  }, [session]);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (!form.title || !form.price) return;
-    if (editing) {
-      setProducts(products.map(p =>
-        p.id === form.id ? { ...p, title: form.title, price: Number(form.price) } : p
-      ));
-      setEditing(false);
-    } else {
-      setProducts([...products, { ...form, id: Date.now(), price: Number(form.price) }]);
+    if (!form.title || form.price === "") return;
+    try {
+      if (editing) {
+        // update product in Supabase
+        const { error } = await supabase
+          .from("product_1v")
+          .update({ title: form.title, price: Number(form.price), thumbnail: form.thumbnail, description: form.description })
+          .eq("id", form.id);
+        if (error) throw error;
+        setProducts(products.map(p => p.id === form.id ? { ...p, title: form.title, price: Number(form.price), thumbnail: form.thumbnail, description: form.description } : p));
+        setEditing(false);
+      } else {
+        // insert
+        const { data, error } = await supabase
+          .from("product_1v")
+          .insert([{ title: form.title, price: Number(form.price), thumbnail: form.thumbnail, description: form.description }])
+          .select()
+          .single();
+        if (error) throw error;
+        setProducts([...products, data]);
+      }
+      setForm({ id: null, title: "", price: "", thumbnail: "", description: "" });
+    } catch (err) {
+      console.error(err);
+      setError(err.message || String(err));
     }
-    setForm({ id: null, title: "", price: "" });
   }
 
   function handleEdit(product) {
-    setForm(product);
+    setForm({ id: product.id, title: product.title || "", price: product.price ?? "", thumbnail: product.thumbnail || "", description: product.description || "" });
     setEditing(true);
   }
 
-  function handleRemove(id) {
-    setProducts(products.filter(p => p.id !== id));
-    if (editing && form.id === id) {
-      setForm({ id: null, title: "", price: "" });
-      setEditing(false);
+  async function handleRemove(id) {
+    try {
+      const { error } = await supabase.from("product_1v").delete().eq("id", id);
+      if (error) throw error;
+      setProducts(products.filter(p => p.id !== id));
+      if (editing && form.id === id) {
+        setForm({ id: null, title: "", price: "", thumbnail: "", description: "" });
+        setEditing(false);
+      }
+    } catch (err) {
+      console.error(err);
+      setError(err.message || String(err));
     }
   }
+
+  if (!session) return <p>Faça login para acessar esta área.</p>;
+  if (!session.user.user_metadata.admin) return <p>Você não tem permissão para acessar esta área.</p>;
 
   return (
     <div className={styles.managerContainer}>
       <div className={styles.managerBox}>
         <h2 className={styles.managerTitle}>Gerenciar Produtos</h2>
+        {error && <div className={styles.managerError}>{error}</div>}
         <form onSubmit={handleSubmit} className={styles.managerActions}>
           <input
             name="title"
@@ -61,33 +105,52 @@ export function Manager() {
             min={0}
             step={0.01}
           />
+          <input
+            name="thumbnail"
+            placeholder="URL da imagem (thumbnail)"
+            value={form.thumbnail}
+            onChange={handleChange}
+            className={styles.managerInput}
+          />
+          <input
+            name="description"
+            placeholder="Descrição"
+            value={form.description}
+            onChange={handleChange}
+            className={styles.managerInput}
+          />
           <button type="submit" className={styles.managerButton}>
             {editing ? "Atualizar" : "Adicionar"}
           </button>
         </form>
-        <ul className={styles.managerList}>
-          {products.map(product => (
-            <li key={product.id} className={styles.managerItem}>
-              <div className={styles.managerItemInfo}>
-                <strong>{product.title}</strong> - R$ {product.price.toFixed(2)}
-              </div>
-              <div className={styles.managerItemActions}>
-                <button
-                  className={styles.managerButton}
-                  onClick={() => handleEdit(product)}
-                >
-                  Editar
-                </button>
-                <button
-                  className={styles.managerButton}
-                  onClick={() => handleRemove(product.id)}
-                >
-                  Remover
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {loading ? (
+          <p>Carregando produtos...</p>
+        ) : (
+          <ul className={styles.managerList}>
+            {products.map(product => (
+              <li key={product.id} className={styles.managerItem}>
+                <div className={styles.managerItemInfo}>
+                  <strong>{product.title}</strong> - R$ {(Number(product.price) || 0).toFixed(2)}
+                  <div>{product.description}</div>
+                </div>
+                <div className={styles.managerItemActions}>
+                  <button
+                    className={styles.managerButton}
+                    onClick={() => handleEdit(product)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    className={styles.managerButton}
+                    onClick={() => handleRemove(product.id)}
+                  >
+                    Remover
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
