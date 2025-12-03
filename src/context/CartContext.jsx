@@ -22,13 +22,21 @@ export function CartProvider({ children }) {
 
   useEffect(() => {
     async function fetchProductsSupabase() {
-      const { data, error } = await supabase.from("product_1v").select();
-      if (error) {
-        setError(`Fetching products failed! ${error.message}`);
-      } else {
-        setProducts(data);
+      try {
+        const { data, error } = await supabase.from("product_1v").select();
+        if (error) {
+          console.error("Supabase error details:", error);
+          setError(`Fetching products failed! ${error.message}`);
+        } else {
+          setProducts(data);
+          setError(null);
+        }
+      } catch (e) {
+        console.error("Fetch exception:", e);
+        setError(`Fetching products failed! ${e.message}`);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     fetchProductsSupabase();
     // State to manage products API

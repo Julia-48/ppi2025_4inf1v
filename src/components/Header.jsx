@@ -8,7 +8,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const { cart } = useContext(CartContext);
-  const { session } = useContext(SessionContext);
+  const { session, isAdmin } = useContext(SessionContext);
 
   return (
     <div className={styles.container}>
@@ -31,6 +31,16 @@ export function Header() {
             </Link>
             <Link to="/register" className={styles.link}>
               Register
+            </Link>
+          </>
+        )}
+        {isAdmin && (
+          <>
+            <Link to="/admin" className={styles.link}>
+              👤 Admin
+            </Link>
+            <Link to="/manager" className={styles.link}>
+              📦 Manager
             </Link>
           </>
         )}
